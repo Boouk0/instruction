@@ -96,3 +96,23 @@ pip uninstall gigachat -y
 1. Отзови (Revoke) свой PAT на GitHub.
 2. Пересоздай ключ GigaChat в личном кабинете Sber Studio.
 3. Удали файл gigachat_key.txt из репозитория (git rm gigachat_key.txt, затем commit и push).
+
+
+
+Инструкция V2
+# 1. Создать папку и зайти в нее
+mkdir gigachat_work
+cd gigachat_work
+
+# 2. Скачать скрипты (замени ТВОЙ_PAT в двух местах!)
+Invoke-RestMethod -Uri "https://raw.githubusercontent.com/Boouk0/my_gigachat_project/main/chat.py" -Headers @{Authorization="token ТВОЙ_PAT"} -OutFile "chat.py"
+Invoke-RestMethod -Uri "https://raw.githubusercontent.com/Boouk0/my_gigachat_project/main/chat_loop.py" -Headers @{Authorization="token ТВОЙ_PAT"} -OutFile "chat_loop.py"
+
+# 3. Скачать ключ в память (замени ТВОЙ_PAT!)
+$env:GIGACHAT_API_KEY = Invoke-RestMethod -Uri "https://raw.githubusercontent.com/Boouk0/my_gigachat_project/main/gigachat_key.txt" -Headers @{Authorization="token ТВОЙ_PAT"}
+
+# 4. Установить библиотеку (если нет интернета, см. README про папку wheels)
+pip install gigachat
+
+# 5. Запустить нейросеть!
+python chat_loop.py
